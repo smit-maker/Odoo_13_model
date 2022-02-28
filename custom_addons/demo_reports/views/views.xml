@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="demo_reports_tree">
+      <field name="name">demo.reports.tree</field>
+      <field name="model">demo.reports</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="Name"/>
+          <field name="comp" string="company"/>
+          <field name="x" string="x"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="demo_reports_list_form">
+      <field name="name">demo.reports.form</field>
+      <field name="model">demo.reports</field>
+      <field name="arch" type="xml">
+      <form string="form view">
+          <sheet>
+            <field name="name" string="Name"/>
+            <field name="comp" string="company"/>
+            <field name="x" string="x"/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="demo_window_reports">
+      <field name="name">demo.reports</field>
+      <field name="res_model">demo.reports</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+      <p>
+        An account is part of a ledger allowing your company
+        to register all kinds of debit and credit transactions.
+        Companies present their annual accounts in two main parts: the
+        balance sheet and the income statement (profit and loss
+        account). The annual accounts of a company are required by law
+        to disclose a certain amount of information.
+      </p>
+      </field>
+    </record>
+
+    <record id="paperformat_euro" model="report.paperformat">
+        <field name="name">European A4</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">25</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- server action to the one above -->
+
+    <record model="ir.actions.report" id="demo_reports_report">
+      <field name="name">report</field>
+      <field name="model">demo.reports</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">demo_reports.report</field>
+      <field name="report_file">demo_reports.report</field>
+<!--      <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>-->
+      <field name="binding_model_id" ref="model_demo_reports"/>
+    </record>
+
+    <record model="ir.actions.report" id="demo_reports_report_1">
+      <field name="name">report 1</field>
+      <field name="model">demo.reports</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">demo_reports.report_1</field>
+      <field name="report_file">demo_reports.report_1</field>
+<!--      <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>-->
+      <field name="binding_model_id" ref="model_demo_reports"/>
+      <field name="paperformat_id" ref="demo_reports.paperformat_euro" />
+    </record>
+    
+
+    <!-- Top menu item -->
+
+    <menuitem name="REPOERTS" id="demo_reports.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Repoert" id="demo_reports.menu_1" parent="demo_reports.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="demo_reports.menu_1_list" parent="demo_reports.menu_1"
+              action="demo_reports.demo_window_reports"/>
+
+  </data>
+</odoo>

@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <template id="report_1">
+            <t t-call="web.html_container">
+              <div class="page">
+                <t t-foreach="docs" t-as="o">
+                    <t t-foreach="o.x" t-as="i">
+                        <table width="100%" style="border: 1px solid black; border-collapse: collapse;">
+                            <!-- <tr>
+                                <td colspan="2">Company Name</td>
+                            </tr>
+                            <tr>
+                                <th width="70%">Company</th>
+                                <th width="30%">Logo</th>
+                            </tr> -->
+                            <tr>
+                                <th colspan="2" style="border-bottom: 1px solid black;border-right: 1px solid black;">Company Name</th>
+                            </tr>
+                            <tr>
+                                <th width="70%" style="border-right: 1px solid black;" align="left"><span><t t-esc="i.name"/></span></th>
+                                <th width="30%" rowspan="5"><img t-if="o.x.image_1920" t-att-src="image_data_uri(o.x.image_1920)" style="max-height: 50px;" alt="Logo"/></th>
+                            </tr>
+                            <tr>
+                                <th align="left" style="border-right: 1px solid black;"><t t-esc="i.street"/></th>
+                            </tr>
+                            <tr>
+                                <th align="left" style="border-right: 1px solid black;"><t t-esc="i.street2"/></th>
+                            </tr>
+                            <tr>
+                                <th align="left" style="border-right: 1px solid black;"><t t-esc="i.city"/> , <t t-esc="i.state_id.name" /> , <t t-esc="i.zip"/> </th>
+                            </tr>
+                            <tr>
+                                <th align="left" style="border-right: 1px solid black;"><t t-esc="i.country_id.name" /></th>
+                            </tr>
+                        </table>
+                    </t>
+                </t>
+              </div>
+            </t>
+        </template>
+
+
+        <template id="report">
+            <t t-call="web.html_container">
+                  <!--<t t-foreach="res.company" t-as="o">-->
+                    <div class="row">
+                        <div class="col-6 mb4">
+                          <t t-foreach="docs" t-as="o">
+                            <h4>company : <t t-esc="o.x.name"/></h4>
+                            
+                          </t>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <img t-if="o.x.image_1920" t-att-src="image_data_uri(o.x.image_1920)" style="max-height: 45px;" alt="Logo"/>
+                    </div>
+                  <!--</t>-->
+            </t>
+            <div class="page">
+                <div class="oe_structure"/>
+                <t t-foreach="docs" t-as="o">
+                    <h4>Name: <t t-esc="o.name"/></h4>
+                </t>
+            </div>
+        </template>
+    </data>
+</odoo>
